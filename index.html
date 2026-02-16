@@ -11,7 +11,7 @@
 		<!-- google fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Sono&family=Cedarville+Cursive&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Sono&family=Cedarville+Cursive" rel="stylesheet">
 
 		<style>
 			* {
@@ -26,14 +26,28 @@
 			
 			body {
 				margin: 0;
+				font-size: 1rem;
 			}
 			
-			h1, h2, h3, h4, h5, h6 {
+			h1 { font-size: 2.75rem; }
+			h2 { font-size: 2.25rem; }
+			h3 { font-size: 1.25rem; }
+			h4 { font-size: 1.15rem; }
+			
+			h1, h2, h3, h4 {
 				color: DarkGreen;
-				font-family: "Cedarville Cursive";
-				font-size: 2.5rem;
 				margin: 0;
-				text-align: center;
+			}
+			
+			h1, h2 {
+				font-family: "Cedarville Cursive";
+			}
+			
+			h3, h4 {
+				margin-block: 1rem;
+				text-decoration: underline;
+				font-family: "Sono";
+				/* font-size: 1.5rem; */
 			}
 			
 			img {
@@ -52,17 +66,16 @@
 				padding: 1rem 1.5rem;
 			}
 			
-			.button {
+			a[data-button] {
 				background-color: DarkGreen;
 				border-radius: 3px;
 				border: 1px solid DarkGreen;
 				color: OldLace;
-				font-size: 1rem;
-				padding: 0.5rem 2rem;
-				text-decoration: none;
+				padding: 0.25rem 0.5rem;
+				margin: -0.25rem -0.5rem;
 			}
 			
-			.button:hover {
+			a[data-button]:hover {
 				background-color: OldLace;
 				border: 1px solid DarkGreen;
 				color: DarkGreen;
@@ -92,34 +105,69 @@
 				border-right: none;
 			}
 			
-			.spread {
+			dl {
+				display: flex;
+				flex-flow: column nowrap;
+				/* width: 100%; */
+				gap: 1rem;
+				margin-block-start: 0;
+			}
+			
+			dl dt {
+				font-weight: bold;
+			}
+			
+			dl dd {
+				margin: 0;
+			}
+			
+			dl dd ul {
+				margin-inline-start: 2ch;
+			}
+			
+			dl>div {
 				border-bottom: 1px dotted;
 				display: flex;
-				flex-flow: row wrap;
-				gap: 1rem;
 				justify-content: space-between;
-				width: 100%;
+				gap: 3rem;
 			}
 			
-			.q-and-a {
-				list-style-type: none;
-				padding: 0;
+			dl address {
+				text-align: end;
+				font-style: normal;
+			}
+			
+			#q-and-a {
+				color: DarkGreen;
+			}
+			
+			#q-and-a dl {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: center;
+				gap: 1rem;
+			}
+			
+			#q-and-a dl dt {
+				color: DarkGreen;
+				font-weight: bold;
+			}
+			
+			#q-and-a p {
 				margin: 0;
 			}
 			
-			.q-and-a p {
-				margin: 0;
-			}
-			
-			.q-and-a>li {
+			#q-and-a dl>div {
 				border: 2px solid DarkGreen;
 				padding: clamp(0.25rem, 3vw, 1.5rem);
 				color: #333;
-				flex-basis: 40ch;
-				/* flex-basis: 35ch; */
+				flex-flow: row wrap;
+				align-items: baseline;
+				flex-basis: 65ch;
+				gap: 1rem;
 			}
 			
-			.q-and-a>li>h3 {
+			#q-and-a dt {
 				font-size: 1.25rem;
 				text-decoration: underline;
 				text-decoration-thickness: 2px;
@@ -136,11 +184,11 @@
 				padding: 0.5rem;
 			}
 			
-			.main-image {
+			main > section:first-of-type img:first-of-type {
 				flex: 1;
 				width: 100%;
-				max-height: 75vh;
 				object-fit: cover;
+				aspect-ratio: 1;
 			}
 			
 			main {
@@ -204,22 +252,6 @@
 					padding-inline-start: 0.5rem;
 				}
 			}
-			
-			.switcher {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 1rem;
-			}
-			
-			.switcher > * {
-				flex-grow: 1;
-				flex-basis: calc(( 80ch - 100%) * 999);
-			}
-			
-			/* .switcher > :nth-last-child(n+5), */
-			/* .switcher > :nth-last-child(n+5) ~ * { */
-			/* 	flex-basis: 100%; */
-			/* } */
 		</style>
 	</head>
 
@@ -233,62 +265,87 @@
 		</nav>
 		<main>
 			<section style="grid-area: photo">
-				<h2>Jen and Morgan</h2>
-
-				<img class="main-image" alt="Jen and Morgan looking good" src="./static/jen-and-morgan.jpg">
+				<h1>Jen and Morgan</h1>
+				<img class="main-image"
+				     alt="Jen and Morgan looking good"
+				     src="./static/jen-and-morgan.jpg"
+				>
 			</section>
 
 			<section style="grid-area: details">
 
 				<h2 id="details">Details</h2>
-
-				<div class="spread">
-					<strong>When:</strong>
-					<span>May 21, 2026, 5:00PM to 10:00PM</span>
-				</div>
-
-				<div class="spread">
-					<strong>Where:</strong>
-					<span>R House Restaurant, Ridgefield CT</span>
-				</div>
-
-				<a class="button" href="#">RSVP</a>
+				<dl>
+					<div>
+						<dt>
+							When:
+						</dt>
+						<dd>
+							<time datetime="2026-05 21T17:00">May 21, 2026, 5:00PM</time>
+							to <time datetime="2026-05 21T22:00">10:00PM</time>
+						</dd>
+					</div>
+					<div>
+						<dt>
+							Where:
+						</dt>
+						<dd>
+							<address>R House Restaurant<br>Ridgefield CT</address>
+						</dd>
+					</div>
+					<div>
+						<dt>
+							Please <a href="https://www.zola.com/wedding/morganandjennifer2026/rsvp" data-button>RSVP</a>
+							By:
+						</dt>
+						<dd>
+							<time datetime="2026-04 09T23:59">April 9, 2026</time>
+						</dd>
+					</div>
+				</dl>
 			</section>
 
 			<section style="grid-area: schedule" class="stack">
-
 				<h2 id="schedule">Schedule</h2>
+				<dl>
+					<div>
+						<dt><time datetime="2026-05 21T16:40">4:40PM</time></dt>
+						<dd>Guests Arrive</dd>
+					</div>
 
-				<div class="spread">
-					<strong>5:00PM</strong>
-					<span>Ceremony</span>
-				</div>
+					<div>
+						<dt><time datetime="2026-05 21T17:00">5:00PM</time></dt>
+						<dd>Ceremony</dd>
+					</div>
 
-				<div class="spread">
-					<strong>6:00PM</strong>
-					<span>Cocktail Hour</span>
-				</div>
+					<div>
+						<dt><time datetime="2026-05 21T18:00">6:00PM</time></dt>
+						<dd>Cocktail Hour</dd>
+					</div>
 
-				<div class="spread">
-					<strong>7:00PM</strong>
-					<span>Dinner</span>
-				</div>
+					<div>
+						<dt><time datetime="2026-05 21T19:00">7:00PM</time></dt>
+						<dd>Dinner</dd>
+					</div>
 
-				<div class="spread">
-					<strong>8:00PM</strong>
-					<span>Dancing</span>
-				</div>
+					<div>
+						<dt><time datetime="2026-05 21T20:00">8:00PM</time></dt>
+						<dd>Dancing</dd>
+					</div>
 
-				<div class="spread">
-					<strong>10:00PM</strong>
-					<span>
-						Bye!
-					</span>
-				</div>
+					<div>
+						<dt><time datetime="2026-05 21T22:00">10:00PM</time></dt>
+						<dd>Bye!</dd>
+					</div>
+				</dl>
 			</section>
 
 			<section style="grid-area: registry" class="stack">
 				<h2 id="registry">Registry</h2>
+				<a class="zola-registry-embed" href="www.zola.com/registry/morganandjennifer2026" data-registry-key="morganandjennifer2026">Our Zola Wedding Registry</a>
+				<script>
+					!function(e,t,n){var s,a=e.getElementsByTagName(t)[0];e.getElementById(n)||(s=e.createElement(t),s.id=n,s.async=!0,s.src="https://widget.zola.com/js/widget.js",a.parentNode.insertBefore(s,a))}(document,"script","zola-wjs");
+				</script>
 			</section>
 
 			<section style="grid-area: local-things" class="stack">
@@ -302,110 +359,109 @@
 				</ul>
 			</section>
 
-			<section style="grid-area: q-and-a" class="stack">
-				<h2 id="q-and-a">Q&amp;A</h2>
-				<ul class="switcher q-and-a">
-					<li>
-						<h3>When should I RSVP by?</h3>
-						<p>Please RSVP by April 9th!</p>
-					</li>
-					<li>
-						<h3>What should I wear?</h3>
-						<p>
+			<section id="q-and-a" style="grid-area: q-and-a">
+				<h2>Q&amp;A</h2>
+				<dl>
+					<div>
+						<dt>When should I RSVP by?</dt>
+						<dd>Please <a href="https://www.zola.com/wedding/morganandjennifer2026/rsvp" data-button>RSVP</a>
+							by April 9th!</dd>
+					</div>
+					<div>
+						<dt>What should I wear?</dt>
+						<dd>
 							Cocktail Attire / Garden Party inspired  / whatever you feel awesome in! And please be sure to wear comfortable shoes, as we will be mostly on grass lawns and stone patios.
-						</p>
-					</li>
-					<li>
-						<h3>Will we be indoors or outdoors?</h3>
-						<ul>
-							<li>
+						</dd>
+					</div>
+					<div>
+						<dt>Will we be indoors or outdoors?</dt>
+						<dd>
+							<p>
 								Our ceremony and reception will both be outdoors, in the back garden and patio area of R House Restaurant.
-							</li>
-							<li>
+							</p>
+							<p>
 								The tables and dance floor will be under a tent.
-							</li>
-							<li>
+							</p>
+							<p>
 								In late May, the temperature at our location will likely be mild but can be a bit unpredictable, so please be sure to bring layers in case it gets chilly!
-							</li>
-							<li>
+							</p>
+							<p>
 								In the case of very inclement weather, the event will be held inside the restaurant.
-							</li>
-						</ul>
-					</li>
-					<li>
-						<h3>Where should I park?</h3>
-						<ul>
-							<li>
-								R House Restaurant has a parking lot behind it, and if that fills up there is another lot right across the street. The restaurant also offers optional valet parking.
-							</li>
-						</ul>
-					</li>
-					<li>
-						<h3>Is the venue wheelchair-accessible?</h3>
-						<ul>
-							<li>
-								Yes, the outdoor area consists of flat lawns and stone patios, and there is a ramp to enter inside the restaurant, where the bathrooms are located.
-							</li>
-						</ul>
-					</li>
-					<li>
-						<h3>Where should I stay?</h3>
-						<p>
-							We have not reserved a room block, so if you will need a place to stay please book wherever you would prefer! There are limited hotel options right in Ridgefield, but a variety of options are available about 20 minutes north in Danbury CT, as well as 20 minutes south in Norwalk CT (see some of these listed below). Airbnb can also be a great option!
-						</p>
-						<h4>Budget</h4>
-						<ul>
-							<li>
-								Ethan Allen Hotel, Danbury
-							</li>
-							<li>
-								EVEN Hotel Norwalk by IHG
-							</li>
-							<li>
-								Days Inn by Wyndham Ridgefield
-							</li>
-						</ul>
-						<h4>Mid-range</h4>
-						<ul>
-							<li>
-								Residence Inn by Marriott Danbury
-							</li>
-							<li>
-								SpringHill Suites by Marriott Danbury
-							</li>
-							<li>
-								Hampton Inn Danbury
-							</li>
-							<li>
-								Hilton Garden Inn Danbury
-							</li>
-							<li>
-								Hotel Zero Degrees Danbury
-							</li>
-							<li>
-								Hilton Garden Inn Norwalk
-							</li>
-							<li>
-								Courtyard by Marriott Norwalk
-							</li>
-						</ul>
-						<h4>Fancy</h4>
-						<ul>
-							<li>
-								West Lane Inn, Ridgefield
-							</li>
-							<li>
-								The Fountain Inn, Ridgefield
-							</li>
-							<li>
-								The Watershed, Norwalk
-							</li>
-							<li>
-								Bedford Post Inn, Bedford NY
-							</li>
-						</ul>
-					</li>
-				</ul>
+							</p>
+						</dd>
+					</div>
+					<div>
+						<dt>Where should I park?</dt>
+						<dd>
+							R House Restaurant has a parking lot behind it, and if that fills up there is another lot right across the street. The restaurant also offers optional valet parking.
+						</dd>
+					</div>
+					<div>
+						<dt>Is the venue wheelchair-accessible?</dt>
+						<dd>
+							Yes, the outdoor area consists of flat lawns and stone patios, and there is a ramp to enter inside the restaurant, where the bathrooms are located.
+						</dd>
+					</div>
+					<div>
+						<dt>Where should I stay?</dt>
+						<dd>
+							<p>
+								We have not reserved a room block, so if you will need a place to stay please book wherever you would prefer! There are limited hotel options right in Ridgefield, but a variety of options are available about 20 minutes north in Danbury CT, as well as 20 minutes south in Norwalk CT (see some of these listed below). Airbnb can also be a great option!
+							</p>
+							<h3>Budget</h3>
+							<ul>
+								<li>
+									Ethan Allen Hotel, Danbury
+								</li>
+								<li>
+									EVEN Hotel Norwalk by IHG
+								</li>
+								<li>
+									Days Inn by Wyndham Ridgefield
+								</li>
+							</ul>
+							<h3>Mid-range</h3>
+							<ul>
+								<li>
+									Residence Inn by Marriott Danbury
+								</li>
+								<li>
+									SpringHill Suites by Marriott Danbury
+								</li>
+								<li>
+									Hampton Inn Danbury
+								</li>
+								<li>
+									Hilton Garden Inn Danbury
+								</li>
+								<li>
+									Hotel Zero Degrees Danbury
+								</li>
+								<li>
+									Hilton Garden Inn Norwalk
+								</li>
+								<li>
+									Courtyard by Marriott Norwalk
+								</li>
+							</ul>
+							<h3>Fancy</h3>
+							<ul>
+								<li>
+									West Lane Inn, Ridgefield
+								</li>
+								<li>
+									The Fountain Inn, Ridgefield
+								</li>
+								<li>
+									The Watershed, Norwalk
+								</li>
+								<li>
+									Bedford Post Inn, Bedford NY
+								</li>
+							</ul>
+						</dd>
+					</div>
+				</dl>
 			</section>
 		</main>
 	</body>
