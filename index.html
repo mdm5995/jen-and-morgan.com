@@ -23,6 +23,11 @@
 				cursor: url("./static/cali-cursor-active.png") 0 0, auto;
 			}
 			
+			*::selection {
+				background-color: LightBlue;
+				color: OldLace;
+			}
+			
 			:root {
 				color: #333;
 				font-size: 22px;
@@ -72,12 +77,31 @@
 				padding: 1rem 1.5rem;
 			}
 			
+			li>a {
+				padding: 0;
+			}
+			
 			a[data-button] {
 				background-color: DarkGreen;
 				border-radius: 3px;
 				border: 1px solid DarkGreen;
 				color: OldLace;
 				padding: 0.125rem 0.5rem;
+			}
+			
+			section>a[data-button] {
+				display:flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			a[data-button]>h2 {
+				color: OldLace;
+				font-size: 4rem;
+			}
+			
+			a[data-button]:hover>h2 {
+				color: DarkGreen;
 			}
 			
 			a[data-button]:hover {
@@ -142,10 +166,12 @@
 				font-style: normal;
 			}
 			
+			#local-things,
 			#q-and-a {
 				color: DarkGreen;
 			}
 			
+			#local-things dl,
 			#q-and-a dl {
 				display: flex;
 				flex-flow: row wrap;
@@ -153,6 +179,7 @@
 				gap: 1rem;
 			}
 			
+			#local-things dl dt,
 			#q-and-a dl dt {
 				color: OldLace;
 				background-color: DarkGreen;
@@ -161,6 +188,7 @@
 				font-weight: bold;
 			}
 			
+			#local-things p,
 			#q-and-a p {
 				margin: 0;
 			}
@@ -175,6 +203,17 @@
 				gap: 1rem;
 			}
 			
+			#local-things dl>div {
+				border: 2px solid DarkGreen;
+				padding: clamp(0.25rem, 3vw, 1.5rem);
+				color: #333;
+				flex-flow: column nowrap;
+				align-items: baseline;
+				flex-basis: 65ch;
+				gap: 1rem;
+			}
+			
+			#local-things dt,
 			#q-and-a dt {
 				font-size: 1.25rem;
 				text-decoration: underline;
@@ -185,6 +224,7 @@
 			
 			section {
 				align-items: center;
+				justify-content: center;
 				background-color: OldLace;
 				display: flex;
 				flex-flow: column;
@@ -207,8 +247,8 @@
 				"details"
 				"schedule"
 				"registry"
-				"local-things"
-				"q-and-a";
+				"q-and-a"
+				"local-things";
 				list-style-type: none;
 				gap: 0.25rem;
 				padding: 0.25rem;
@@ -228,7 +268,7 @@
 				}
 				
 				nav {
-					display: none;
+					/* display: none; */
 					flex-flow: row nowrap;
 					position: sticky;
 					top: 0;
@@ -240,21 +280,24 @@
 				main {
 					grid-template-columns: repeat(2, 1fr);
 					grid-template-areas:
-					"photo details"
-					"photo schedule"
-					"registry local-things"
-					"q-and-a q-and-a";
+					"photo details details"
+					"photo schedule schedule"
+					"q-and-a q-and-a q-and-a"
+					"local-things local-things local-things";
 				}
 			}
 			
 			@media screen and (min-width: 194ch) {
-				main {
-					grid-template-columns: repeat(3, 1fr);
-					grid-template-areas:
-					"photo details schedule"
-					"photo registry local-things"
-					"q-and-a q-and-a q-and-a";
-				}
+				/* main { */
+				/* 	grid-template-columns: repeat(3, 1fr); */
+				/* 	grid-template-areas: */
+				/* 	"photo photo details" */
+				/* 	"photo photo schedule" */
+				/* 	/* "photo details schedule" */ */
+				/* 	/* "photo details schedule" */ */
+				/* 	"q-and-a q-and-a q-and-a" */
+				/* 	"local-things local-things local-things"; */
+				/* } */
 				
 				ul {
 					padding-inline-start: 0.5rem;
@@ -267,9 +310,10 @@
 		<nav>
 			<a href="#">Top</a>
 			<a href="#details">Details</a>
-			<a href="#registry">Registry</a>
-			<a href="#local-things">Local Things</a>
+			<a href="#schedule">Schedule</a>
+			<a href="https://www.zola.com/wedding/morganandjennifer2026/registry">Registry</a>
 			<a href="#q-and-a">Q&amp;A</a>
+			<a href="#local-things">Local Things</a>
 		</nav>
 		<main>
 			<section style="grid-area: photo">
@@ -289,8 +333,8 @@
 							When:
 						</dt>
 						<dd>
-							<time datetime="2026-05 21T17:00">May 21, 2026, 5:00PM</time>
-							to <time datetime="2026-05 21T22:00">10:00PM</time>
+							<time datetime="2026-05-21T17:00">May 21, 2026, 5:00PM</time>
+							to <time datetime="2026-05-21T22:00">10:00PM</time>
 						</dd>
 					</div>
 					<div>
@@ -348,23 +392,82 @@
 				</dl>
 			</section>
 
-			<section style="grid-area: registry" class="stack">
-				<h2 id="registry">Registry</h2>
-				<a class="zola-registry-embed" href="www.zola.com/registry/morganandjennifer2026" data-registry-key="morganandjennifer2026">Our Zola Wedding Registry</a>
-				<script>
-					!function(e,t,n){var s,a=e.getElementsByTagName(t)[0];e.getElementById(n)||(s=e.createElement(t),s.id=n,s.async=!0,s.src="https://widget.zola.com/js/widget.js",a.parentNode.insertBefore(s,a))}(document,"script","zola-wjs");
-				</script>
-			</section>
+			<!-- <section style="grid-area: registry" class="stack"> -->
+			<!-- 	<a data-button href="https://www.zola.com/wedding/morganandjennifer2026/registry"> -->
+			<!-- 		<h2 id="registry">Registry</h2> -->
+			<!-- 	</a> -->
+			<!-- </section> -->
 
-			<section style="grid-area: local-things" class="stack">
-				<h2 id="local-things">Local Things To Do</h2>
-				<ul>
-					<li>Art Museums</li>
-					<li>Coffee Shops</li>
-					<li>Hikes</li>
-					<li>Parks</li>
-					<li>Restaurants</li>
-				</ul>
+			<section id="local-things" style="grid-area: local-things" class="stack">
+				<h2>Local Things To Do</h2>
+				<dl>
+					<div>
+						<dt>Art Museums</dt>
+						<dd>
+							<ul>
+								<li><a href="https://thealdrich.org/">Aldrich Museum of Contemporary Art</a></li>
+								<li><a href="https://www.hammondmuseum.org/">Hammond Museum & Japanese Stroll Garden</a></li>
+							</ul>
+						</dd>
+					</div>
+					<div>
+						<dt>Cafés</dt>
+						<dd>
+							<ul>
+								<li><a href="https://www.mothershipbakeryandcafe.com/">Mothership Bakery</a></li>
+								<li><a href="https://moltenjava.wordpress.com/">Molten Java</a></li>
+								<li><a href="https://www.georgetownowl.com/">The Georgetown Owl Cafe & Market</a></li>
+								<li><a href="https://fattoamanobreads.com/">Fatto a Mano</a></li>
+								<li><a href="https://www.cornercaferidgefield.com/">Corner Cafe of Ridgefield</a></li>
+							</ul>
+						</dd>
+					</div>
+					<div>
+						<dt>Breakfast Restaurants</dt>
+						<dd>
+							<ul>
+								<li><a href="https://the-olde-blue-bird-inn-restaurant.res-menu.net/">The Olde Bluebird Inn</a></li>
+								<li><a href="https://www.gruelbritannia.com/">Gruel Britannia</a></li>
+								<li><a href="https://www.crepeschoupette.com/">Crêpes Choupette</a></li>
+								<li><a href="https://www.sherwooddinerct.com/">Sherwood Diner</a></li>
+							</ul>
+						</dd>
+					</div>
+					<div>
+						<dt>Restaurants</dt>
+						<dd>
+							<ul>
+								<li><a href="https://marketplacekitchenbar.com/">Market Place Kitchen</a>
+								(Newtown or Danbury)</li>
+								<li><a href="https://www.malibutaco.com/">Malibu</a></li>
+								<li><a href="https://www.geronimobarandgrill.com/">Geronimo</a></li>
+								<li><a href="https://www.mama-chow.com/">Mama Chow</a></li>
+								<li><a href="https://www.toronewtown.com/">Toro</a></li>
+							</ul>
+						</dd>
+					</div>
+					<div>
+						<dt>Animals</dt>
+						<dd>
+							<ul>
+								<li><a href="https://www.beardsleyzoo.org/">Beardsley Zoo</a></li>
+								<li><a href="https://www.maritimeaquarium.org/">Maritime Aquarium</a></li>
+								<li><a href="https://www.stamfordmuseum.org/">Stamford Museum & Nature Center</a></li>
+							</ul>
+						</dd>
+					</div>
+					<div>
+						<dt>Nature</dt>
+						<dd>
+							<ul>
+								<li><a href="https://www.nature.org/en-us/get-involved/how-to-help/places-we-protect/lucius-pond-ordwaydevils-den-preserve/">Devil's Den Nature Preserve</a></li>
+								<li><a href="https://portal.ct.gov/deep/state-parks/parks/collis-p-huntington-state-park">Huntington State Park</a></li>
+								<li><a href="https://tarrywile.com/">Tarrywile Park</a></li>
+								<li><a href="https://gracefarms.org/">Grace Farms</a></li>
+							</ul>
+						</dd>
+					</div>
+				</dl>
 			</section>
 
 			<section id="q-and-a" style="grid-area: q-and-a">
