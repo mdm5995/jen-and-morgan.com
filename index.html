@@ -39,6 +39,8 @@
 			body {
 				margin: 0;
 				font-size: 1rem;
+				display: flex;
+				flex-flow: column-reverse nowrap;
 			}
 			
 			h1 { font-size: 2.75rem; }
@@ -112,11 +114,12 @@
 			}
 			
 			nav {
+				z-index: 1;
 				background-color: DarkGreen;
 				gap: 2px;
 				border-top: 2px solid DarkGreen;
 				display: flex;
-				position: fixed;
+				position: sticky;
 				bottom: 0;
 				overflow-x: scroll;
 				width: 100%;
@@ -127,6 +130,7 @@
 				align-items: center;
 				justify-content: center;
 				flex-grow: 1;
+				flex-shrink: 0;
 				text-decoration-thickness: 2px;
 				padding: 0.5rem 1rem;
 			}
@@ -138,7 +142,6 @@
 			dl {
 				display: flex;
 				flex-flow: column nowrap;
-				/* width: 100%; */
 				gap: 1rem;
 				margin-block-start: 0;
 			}
@@ -167,9 +170,49 @@
 				font-style: normal;
 			}
 			
-			#local-things,
 			#q-and-a {
-				color: DarkGreen;
+				container-type: inline-size;
+			}
+			
+			#q-and-a>div {
+				display: grid;
+				grid-template-areas: "content content"
+				"img-1 img-2";
+			}
+			
+			#q-and-a dl {
+				grid-area: content;
+			}
+			
+			#q-and-a img:first-of-type {
+				grid-area: img-1;
+				transform: rotate(-3deg);
+			}
+			
+			#q-and-a img:last-of-type {
+				grid-area: img-2;
+				transform: rotate(3deg);
+			}
+			
+			@container (min-width: 65ch) {
+				#q-and-a>div {
+					grid-template-areas: "img-1 content content img-2";
+				}
+				
+				#q-and-a img {
+					position: sticky;
+				}
+				
+				#q-and-a img:first-of-type {
+					align-self: start;
+					top: 0;
+				}
+				
+				#q-and-a img:last-of-type {
+					align-self: end;
+					bottom: 0;
+				}
+				
 			}
 			
 			#local-things dl,
@@ -264,14 +307,17 @@
 			}
 			
 			@media screen and (min-width: 128ch) {
+				body {
+					flex-flow: column nowrap;
+				}
+				
 				h1, h2, h3, h4, h5, h6 {
 					scroll-margin-top: 6rem;
+					text-align: center;
 				}
 				
 				nav {
-					/* display: none; */
 					flex-flow: row nowrap;
-					position: sticky;
 					top: 0;
 					border-bottom: 2px solid DarkGreen;
 					border-top: none;
@@ -285,6 +331,7 @@
 					"photo schedule schedule"
 					"q-and-a q-and-a q-and-a"
 					"local-things local-things local-things";
+					margin: min(1.5rem, 1vw);
 				}
 			}
 			
@@ -456,126 +503,130 @@
 
 			<section id="q-and-a" style="grid-area: q-and-a">
 				<h2>Q&amp;A</h2>
-				<dl>
-					<div>
-						<dt>When should I RSVP by?</dt>
-						<dd>Please <a href="https://www.zola.com/wedding/morganandjennifer2026/rsvp" data-button>RSVP</a>
-							by April 9th!</dd>
-					</div>
+				<div>
+					<img alt="A polaroid of Jen and Morgan smiling on the porch." src="./static/jen-morgan-polaroid-1.jpg">
+					<dl>
+						<div>
+							<dt>When should I RSVP by?</dt>
+							<dd>Please <a href="https://www.zola.com/wedding/morganandjennifer2026/rsvp" data-button>RSVP</a>
+								by April 9th!</dd>
+						</div>
 
-					<div>
-						<dt>Do I need to select a meal?</dt>
-						<dd>You do not need to make a meal selection in advance. Dinner will be buffet style, with options for all dietary needs. If you have any dietary restrictions, please let us know when you RSVP so that the catering team can take care of you.</dd>
-					</div>
+						<div>
+							<dt>Do I need to select a meal?</dt>
+							<dd>You do not need to make a meal selection in advance. Dinner will be buffet style, with options for all dietary needs. If you have any dietary restrictions, please let us know when you RSVP so that the catering team can take care of you.</dd>
+						</div>
 
-					<div>
-						<dt>
-							Can I bring a plus one?
-						</dt>
-						<dd>
-							We're keeping the gathering intimate, so unless your invitation includes a guest, we won’t be able to accommodate additional attendees.
-						</dd>
-					</div>
+						<div>
+							<dt>
+								Can I bring a plus one?
+							</dt>
+							<dd>
+								We're keeping the gathering intimate, so unless your invitation includes a guest, we won’t be able to accommodate additional attendees.
+							</dd>
+						</div>
 
-					<div>
-						<dt>What should I wear?</dt>
-						<dd>
-							Cocktail Attire / Garden Party inspired  / whatever you feel awesome in! And please be sure to wear comfortable shoes, as we will be mostly on grass lawns and stone patios.
-						</dd>
-					</div>
+						<div>
+							<dt>What should I wear?</dt>
+							<dd>
+								Cocktail Attire / Garden Party inspired  / whatever you feel awesome in! And please be sure to wear comfortable shoes, as we will be mostly on grass lawns and stone patios.
+							</dd>
+						</div>
 
-					<div>
-						<dt>Will we be indoors or outdoors?</dt>
-						<dd>
-							<p>
-								Our ceremony and reception will both be outdoors, in the back garden and patio area of R House Restaurant.
-							</p>
-							<p>
-								The tables and dance floor will be under a tent.
-							</p>
-							<p>
-								In late May, the temperature at our location will likely be mild but can be a bit unpredictable, so please be sure to bring layers in case it gets chilly!
-							</p>
-							<p>
-								In the case of very inclement weather, the event will be held inside the restaurant.
-							</p>
-						</dd>
-					</div>
+						<div>
+							<dt>Will we be indoors or outdoors?</dt>
+							<dd>
+								<p>
+									Our ceremony and reception will both be outdoors, in the back garden and patio area of R House Restaurant.
+								</p>
+								<p>
+									The tables and dance floor will be under a tent.
+								</p>
+								<p>
+									In late May, the temperature at our location will likely be mild but can be a bit unpredictable, so please be sure to bring layers in case it gets chilly!
+								</p>
+								<p>
+									In the case of very inclement weather, the event will be held inside the restaurant.
+								</p>
+							</dd>
+						</div>
 
-					<div>
-						<dt>Where should I park?</dt>
-						<dd>
-							R House Restaurant has a parking lot behind it, and if that fills up there is another lot right across the street. The restaurant also offers optional valet parking.
-						</dd>
-					</div>
+						<div>
+							<dt>Where should I park?</dt>
+							<dd>
+								R House Restaurant has a parking lot behind it, and if that fills up there is another lot right across the street. The restaurant also offers optional valet parking.
+							</dd>
+						</div>
 
-					<div>
-						<dt>Is the venue wheelchair-accessible?</dt>
-						<dd>
-							Yes, the outdoor area consists of flat lawns and stone patios, and there is a ramp to enter inside the restaurant, where the bathrooms are located.
-						</dd>
-					</div>
+						<div>
+							<dt>Is the venue wheelchair-accessible?</dt>
+							<dd>
+								Yes, the outdoor area consists of flat lawns and stone patios, and there is a ramp to enter inside the restaurant, where the bathrooms are located.
+							</dd>
+						</div>
 
-					<div>
-						<dt>Where should I stay?</dt>
-						<dd>
-							<p>
-								We have not reserved a room block, so if you will need a place to stay please book wherever you would prefer! There are limited hotel options right in Ridgefield, but a variety of options are available about 20 minutes north in Danbury CT, as well as 20 minutes south in Norwalk CT (see some of these listed below). Airbnb can also be a great option!
-							</p>
-							<h3>Budget</h3>
-							<ul>
-								<li>
-									Ethan Allen Hotel, Danbury
-								</li>
-								<li>
-									EVEN Hotel Norwalk by IHG
-								</li>
-								<li>
-									Days Inn by Wyndham Ridgefield
-								</li>
-							</ul>
-							<h3>Mid-range</h3>
-							<ul>
-								<li>
-									Residence Inn by Marriott Danbury
-								</li>
-								<li>
-									SpringHill Suites by Marriott Danbury
-								</li>
-								<li>
-									Hampton Inn Danbury
-								</li>
-								<li>
-									Hilton Garden Inn Danbury
-								</li>
-								<li>
-									Hotel Zero Degrees Danbury
-								</li>
-								<li>
-									Hilton Garden Inn Norwalk
-								</li>
-								<li>
-									Courtyard by Marriott Norwalk
-								</li>
-							</ul>
-							<h3>Fancy</h3>
-							<ul>
-								<li>
-									West Lane Inn, Ridgefield
-								</li>
-								<li>
-									The Fountain Inn, Ridgefield
-								</li>
-								<li>
-									The Watershed, Norwalk
-								</li>
-								<li>
-									Bedford Post Inn, Bedford NY
-								</li>
-							</ul>
-						</dd>
-					</div>
-				</dl>
+						<div>
+							<dt>Where should I stay?</dt>
+							<dd>
+								<p>
+									We have not reserved a room block, so if you will need a place to stay please book wherever you would prefer! There are limited hotel options right in Ridgefield, but a variety of options are available about 20 minutes north in Danbury CT, as well as 20 minutes south in Norwalk CT (see some of these listed below). Airbnb can also be a great option!
+								</p>
+								<h3>Budget</h3>
+								<ul>
+									<li>
+										Ethan Allen Hotel, Danbury
+									</li>
+									<li>
+										EVEN Hotel Norwalk by IHG
+									</li>
+									<li>
+										Days Inn by Wyndham Ridgefield
+									</li>
+								</ul>
+								<h3>Mid-range</h3>
+								<ul>
+									<li>
+										Residence Inn by Marriott Danbury
+									</li>
+									<li>
+										SpringHill Suites by Marriott Danbury
+									</li>
+									<li>
+										Hampton Inn Danbury
+									</li>
+									<li>
+										Hilton Garden Inn Danbury
+									</li>
+									<li>
+										Hotel Zero Degrees Danbury
+									</li>
+									<li>
+										Hilton Garden Inn Norwalk
+									</li>
+									<li>
+										Courtyard by Marriott Norwalk
+									</li>
+								</ul>
+								<h3>Fancy</h3>
+								<ul>
+									<li>
+										West Lane Inn, Ridgefield
+									</li>
+									<li>
+										The Fountain Inn, Ridgefield
+									</li>
+									<li>
+										The Watershed, Norwalk
+									</li>
+									<li>
+										Bedford Post Inn, Bedford NY
+									</li>
+								</ul>
+							</dd>
+						</div>
+					</dl>
+					<img alt="A polaroid of Jen and Morgan cutting their engagement cake!" src="./static/jen-morgan-polaroid-2.jpg">
+				</div>
 			</section>
 		</main>
 	</body>
